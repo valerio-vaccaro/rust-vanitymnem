@@ -1,0 +1,25 @@
+[package]
+name = "tests"
+version = "0.0.1-dev"
+authors = ["Valerio Vaccaro <rust@valeriovaccaro.it>"]
+edition = "2018"
+license = "MIT"
+homepage = "vanitymnem.com"
+repository = "https://github.com/valerio-vaccaro/rust-vanitymnem"
+documentation = "https://github.com/valerio-vaccaro/rust-vanitymnem"
+description = "Create a valid Bitcoin mnemonic with a vanity address in a specific derivation."
+keywords = ["Bitcoin", "Mnemonic"]
+readme = "README.md"
+
+[[bin]]
+name = "vanitymnem"
+path = "src/vanitymnem.rs"
+
+[dependencies]
+bitcoin = "0.26.0"
+bip39 = "1.0.1"
+regex = "1"
+qrcode = "0.12.0"
+clap = "2.33.3"
+colored = "2"
+rand = "0.8.3"
