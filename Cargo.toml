@@ -15,8 +15,17 @@ readme = "README.md"
 name = "vanitymnem"
 path = "src/vanitymnem.rs"
 
+[[bin]]
+name = "derive"
+path = "src/derive.rs"
+
+[[bin]]
+name = "derive-el"
+path = "src/derive-el.rs"
+
 [dependencies]
 bitcoin = "0.26.0"
+elements = "0.17"
 bip39 = "1.0.1"
 regex = "1"
 qrcode = "0.12.0"
