@@ -98,7 +98,7 @@ fn main() {
         xpub: String,
         derivation: String,
         address: String,
-    };
+    }
 
     let mut stats = Stats {
         n_mnemonics: 0,
