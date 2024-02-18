@@ -88,8 +88,8 @@ fn main() {
     let child = root.derive_priv(&secp, &path).unwrap();
     let xpub = ExtendedPubKey::from_private(&secp, &child);
 
-    println!("Mnemonic: {}\nNetwork: {} Derivation: {}\nXPub: {}\nXPriv: {}\n", mnemonic.to_string().red(), network.to_string().green(), path.to_string().yellow(), xpub.to_string().green(), child.to_string().red());
-    println!("{:07}{:42} {:66} {:52}\n", "Path".to_string().yellow(), "Address".to_string().green(), "PubKey".to_string().yellow(), "PrivKey".to_string().red());
+    println!("Mnemonic: {}\nNetwork: {} Derivation: {}\nXPub: {}\nXPriv: {}", mnemonic.to_string().red(), network.to_string().green(), path.to_string().yellow(), xpub.to_string().green(), child.to_string().red());
+    println!("{:07}{:42} {:66} {:52}", "Path".to_string().yellow(), "Address".to_string().green(), "PubKey".to_string().yellow(), "PrivKey".to_string().red());
     for i in 0..n_children {
         let zero = ChildNumber::from_normal_idx(0).unwrap();
         let n = ChildNumber::from_normal_idx(i.try_into().unwrap()).unwrap();
@@ -107,5 +107,23 @@ fn main() {
         }
         println!("{:3}{:04}{:42} {:66} {:52}", "/0/".to_string().yellow(), i.to_string().yellow(), address.green(), public_key.to_string().yellow(), private_key.to_string().red());
     }
-
+    println!("Changes:");
+    println!("{:07}{:42} {:66} {:52}", "Path".to_string().yellow(), "Address".to_string().green(), "PubKey".to_string().yellow(), "PrivKey".to_string().red());
+    for i in 0..n_children {
+        let one = ChildNumber::from_normal_idx(1).unwrap();
+        let n = ChildNumber::from_normal_idx(i.try_into().unwrap()).unwrap();
+        let public_key = xpub.derive_pub(&secp, &vec![one, n]).unwrap().public_key;
+        let private_key = child.derive_priv(&secp, &vec![one, n]).unwrap().private_key;
+        let address;
+        if address_type == "nested_segwit" {
+            address = Address::p2shwpkh(&public_key, network_type).unwrap().to_string();
+        }
+        else if address_type == "legacy" {
+            address = Address::p2pkh(&public_key, network_type).to_string();
+        }
+        else{
+            address = Address::p2wpkh(&public_key, network_type).unwrap().to_string();
+        }
+        println!("{:3}{:04}{:42} {:66} {:52}", "/1/".to_string().yellow(), i.to_string().yellow(), address.green(), public_key.to_string().yellow(), private_key.to_string().red());
+    }
 }
