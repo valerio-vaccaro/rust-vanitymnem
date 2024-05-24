@@ -1,10 +1,10 @@
 [package]
 name = "tests"
-version = "0.0.1-dev"
+version = "0.0.1"
 authors = ["Valerio Vaccaro <rust@valeriovaccaro.it>"]
 edition = "2018"
 license = "MIT"
-homepage = "vanitymnem.com"
+homepage = "https://vanitymnem.com"
 repository = "https://github.com/valerio-vaccaro/rust-vanitymnem"
 documentation = "https://github.com/valerio-vaccaro/rust-vanitymnem"
 description = "Create a valid Bitcoin mnemonic with a vanity address in a specific derivation."
